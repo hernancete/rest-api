@@ -1,0 +1,27 @@
+name: Main Branch Push
+run-name: ${{ github.actor }} pushed new changes into main
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        id: install-deps
+        run: |
+          npm ci
+
+      - name: Run tests
+        id: run-tests
+        run: |
+          npm test
