@@ -83,4 +83,29 @@ describe('File user repository - create new user', () => {
     spyWrite.mockRestore();
   });
 
+  test('It should throw an error if wallet_id is missing', async () => {
+    const newUser = {
+      "email": "newuser@gmail.com",
+      "name": "Juan",
+      "last_name": "Perez",
+      "sex_type": "male",
+      "dni": "81234567",
+      "birth_date": "1990-06-12T10:41:19.886Z",
+      "created_at": "2025-04-02T23:32:00.886Z",
+    };
+
+    const spyRead = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+    const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
+
+    const fileUserRepository = new FileUserRepository();
+
+    await expect(() => fileUserRepository.create(newUser as User)).rejects.toThrow();
+
+    expect(spyRead).toHaveBeenCalledTimes(0);
+    expect(spyWrite).toHaveBeenCalledTimes(0);
+
+    spyRead.mockRestore();
+    spyWrite.mockRestore();
+  });
+
 });

@@ -14,6 +14,9 @@ export class FileUserRepository implements UserRepositoryInterface {
   }
 
   async create(user: User): Promise<User> {
+
+    if (!user.wallet_id) throw new Error('Invalid user');
+
     const usersBuffer = await readFile(file);
     const users = JSON.parse(usersBuffer.toString());
     const updatedUsers = [...users, user];
