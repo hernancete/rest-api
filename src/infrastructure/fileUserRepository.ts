@@ -1,11 +1,15 @@
 import { readFile } from 'fs/promises';
+import path from 'path';
 import { UserRepositoryInterface } from '../application/userRepositoryInterface';
 import { User } from '../domain/user';
+
+const STORAGE = process.env.STORAGE || 'storage/users.json';
 
 export class FileUserRepository implements UserRepositoryInterface {
 
   async findAll(): Promise<User[]> {
-    const users = await readFile('myFile.json');
+    const file = path.resolve(__dirname, '..', '..', STORAGE);
+    const users = await readFile(file);
     return JSON.parse(users.toString());
   }
 
