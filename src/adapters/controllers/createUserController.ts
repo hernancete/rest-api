@@ -1,6 +1,6 @@
 import { Request, Response,  NextFunction } from 'express';
-import { CreateUserUseCase } from '../application/createUserUseCase';
-import { FileUserRepository } from '../infrastructure/fileUserRepository';
+import { CreateUserUseCase } from '../../application/createUserUseCase';
+import { FileUserRepository } from '../../infrastructure/fileUserRepository';
 
 export async function createUserController(req: Request, res: Response, next: NextFunction) {
 

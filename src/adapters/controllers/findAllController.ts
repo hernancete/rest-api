@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { FindAllUseCase } from '../application/findAllUseCase';
-import { FileUserRepository } from '../infrastructure/fileUserRepository';
+import { FindAllUseCase } from '../../application/findAllUseCase';
+import { FileUserRepository } from '../../infrastructure/fileUserRepository';
 
 export async function findAllController(req: Request, res: Response) {
 

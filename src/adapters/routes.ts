@@ -1,7 +1,7 @@
 import express from 'express';
-import { findAllController } from './findAllController';
-import { createUserController } from './createUserController';
-import { deleteUserController } from './deleteUserController';
+import { findAllController } from './controllers/findAllController';
+import { createUserController } from './controllers/createUserController';
+import { deleteUserController } from './controllers/deleteUserController';
 
 const router = express.Router();
 

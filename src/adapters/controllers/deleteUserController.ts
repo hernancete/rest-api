@@ -1,6 +1,6 @@
 import { Request, Response,  NextFunction } from 'express';
-import { DeleteUserUseCase } from '../application/deleteUserUseCase';
-import { FileUserRepository } from '../infrastructure/fileUserRepository';
+import { DeleteUserUseCase } from '../../application/deleteUserUseCase';
+import { FileUserRepository } from '../../infrastructure/fileUserRepository';
 
 const message = 'User deleted successfully';
 
