@@ -34,8 +34,7 @@ describe('File user repository - find all users', () => {
 
 describe('File user repository - create new user', () => {
 
-  test('It should call the save action with the provided data', async () => {
-    // email, name, last_name, dni
+  test('It should save the user in the persistent layer', async () => {
     const newUser = {
       "wallet_id": v4(),
       "email": "newuser@gmail.com",
@@ -49,7 +48,6 @@ describe('File user repository - create new user', () => {
 
     const spyRead = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
     const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
-
     const fileUserRepository = new FileUserRepository();
     await fileUserRepository.create(newUser);
 
@@ -60,7 +58,7 @@ describe('File user repository - create new user', () => {
     spyWrite.mockRestore();
   });
 
-  test('It should call the save action with the provided partial data', async () => {
+  test('It should save the user in the persistent layer even with some non-required attributes missing', async () => {
     const newUser = {
       "wallet_id": v4(),
       "email": "newuser@gmail.com",
@@ -104,6 +102,30 @@ describe('File user repository - create new user', () => {
 
     expect(spyRead).toHaveBeenCalledTimes(0);
     expect(spyWrite).toHaveBeenCalledTimes(0);
+
+    spyRead.mockRestore();
+    spyWrite.mockRestore();
+  });
+
+});
+
+describe('File user repository - delete user', () => {
+
+  test('It should call the delete the user with the given user id', async () => {
+    const wallet_id = '98917d00-9c5b-4642-abf5-5b7c99c7c2ed';
+
+    const spyRead = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+    const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
+
+    const fileUserRepository = new FileUserRepository();
+    await fileUserRepository.delete(wallet_id);
+
+    const [ , updatedUserList ] = spyWrite.mock.calls[0];
+    const deletedUserInUpdatedUsersList = JSON.parse(updatedUserList as string).find((u: User) => u.wallet_id === wallet_id);
+
+    expect(spyRead).toHaveBeenCalledTimes(1);
+    expect(spyWrite).toHaveBeenCalledTimes(1);
+    expect(deletedUserInUpdatedUsersList).toBeUndefined();
 
     spyRead.mockRestore();
     spyWrite.mockRestore();
