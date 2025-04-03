@@ -1,7 +1,5 @@
-// import { Request, Response } from 'express';
 import { createUserController } from '../../src/adapters/createUserController';
 import { CreateUserUseCase }  from '../../src/application/createUserUseCase';
-// import { users } from '../data';
 
 describe('Create user controller', () => {
 
@@ -25,8 +23,9 @@ describe('Create user controller', () => {
 
     const req = { body: inputBody } as any;
     const res = { json: jest.fn() } as any;
+    const next = jest.fn();
 
-    const response = await createUserController(req, res);
+    const response = await createUserController(req, res, next);
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(req.body);
@@ -35,18 +34,38 @@ describe('Create user controller', () => {
     spy.mockRestore();
   });
 
-  // TODO: hacer el middleware para manejar los errores
-  // test('It should throw an error if no body is provided', async () => {
+  test('It should call the error handler if no body is provided', async () => {
 
-  //   const spy = jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(createdUser as never);
+    const spy = jest.spyOn(CreateUserUseCase.prototype, 'execute').mockResolvedValue(createdUser as never);
 
-  //   const req = { } as any;
-  //   const res = { json: jest.fn() } as any;
+    const req = { } as any;
+    const res = { json: jest.fn() } as any;
+    const next = jest.fn();
 
-  //   await expect(() => createUserController(req, res)).rejects.toThrow();
-  //   expect(spy).toHaveBeenCalledTimes(0);
+    const response = await createUserController(req, res, next);
 
-  //   spy.mockRestore();
-  // });
+    expect(next).toHaveBeenCalledTimes(1);
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+    expect(spy).toHaveBeenCalledTimes(0);
+
+    spy.mockRestore();
+  });
+
+  test('It should call the error handler if the use case throws an error', async () => {
+
+    const spy = jest.spyOn(CreateUserUseCase.prototype, 'execute').mockRejectedValue(new Error('Some error'));
+
+    const req = { body: inputBody } as any;
+    const res = { json: jest.fn() } as any;
+    const next = jest.fn();
+
+    const response = await createUserController(req, res, next);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(next).toHaveBeenCalledTimes(1);
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+
+    spy.mockRestore();
+  });
 
 });

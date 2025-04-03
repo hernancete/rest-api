@@ -1,12 +1,17 @@
-import { Request, Response } from 'express';
+import { Request, Response,  NextFunction } from 'express';
 import { CreateUserUseCase } from '../application/createUserUseCase';
 import { FileUserRepository } from '../infrastructure/fileUserRepository';
 
-export async function createUserController(req: Request, res: Response) {
+export async function createUserController(req: Request, res: Response, next: NextFunction) {
 
-  const userRepository = new FileUserRepository();
-  const createUserUseCase = new CreateUserUseCase(userRepository);
-  const createdUser = await createUserUseCase.execute(req.body);
+  if (!req.body) return next(new Error('No body provided'));
 
-  res.json(createdUser);
+  try {
+    const userRepository = new FileUserRepository();
+    const createUserUseCase = new CreateUserUseCase(userRepository);
+    const createdUser = await createUserUseCase.execute(req.body);
+    res.json(createdUser);
+  } catch (e) {
+    next(e);
+  }
 }
