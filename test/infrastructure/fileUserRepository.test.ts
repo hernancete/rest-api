@@ -84,6 +84,7 @@ describe('File user repository - create new user', () => {
   });
 
   test('It should throw an error if wallet_id is missing', async () => {
+    // simulate a db's primary key
     const newUser = {
       "email": "newuser@gmail.com",
       "name": "Juan",
