@@ -7,7 +7,7 @@ export class CreateUserUseCase {
 
   constructor(private userRepository: UserRepositoryInterface) {}
 
-  async execute(user: Partial<User>): Promise<void> {
+  async execute(user: Partial<User>): Promise<User> {
 
     if (!user.email) throw new InvalidInputError('Invalid email');
     if (!user.name) throw new InvalidInputError('Invalid name');
@@ -20,7 +20,8 @@ export class CreateUserUseCase {
 
     const newUser = { ...user, wallet_id, created_at };
 
-    await this.userRepository.create(newUser as User);
+    const created = await this.userRepository.create(newUser as User);
+    return created;
   }
 
 }

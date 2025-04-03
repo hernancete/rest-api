@@ -16,7 +16,7 @@ describe('Create user use case', () => {
     };
 
     const userRepository = new FileUserRepository();
-    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue();
+    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue({} as never);
 
     const createUserUseCase = new CreateUserUseCase(userRepository);
     await createUserUseCase.execute(newUser);
@@ -43,7 +43,7 @@ describe('Create user use case', () => {
     };
 
     const userRepository = new FileUserRepository();
-    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue();
+    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue({} as never);
 
     const createUserUseCase = new CreateUserUseCase(userRepository);
     await createUserUseCase.execute(newUser);
@@ -67,7 +67,7 @@ describe('Create user use case', () => {
     };
 
     const userRepository = new FileUserRepository();
-    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue();
+    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue({} as never);
 
     const createUserUseCase = new CreateUserUseCase(userRepository);
     await expect(createUserUseCase.execute(newUser)).rejects.toThrow();
@@ -86,7 +86,7 @@ describe('Create user use case', () => {
     };
 
     const userRepository = new FileUserRepository();
-    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue();
+    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue({} as never);
 
     const createUserUseCase = new CreateUserUseCase(userRepository);
     await expect(createUserUseCase.execute(newUser)).rejects.toThrow();
@@ -105,7 +105,7 @@ describe('Create user use case', () => {
     };
 
     const userRepository = new FileUserRepository();
-    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue();
+    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue({} as never);
 
     const createUserUseCase = new CreateUserUseCase(userRepository);
     await expect(createUserUseCase.execute(newUser)).rejects.toThrow();
@@ -124,7 +124,7 @@ describe('Create user use case', () => {
     };
 
     const userRepository = new FileUserRepository();
-    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue();
+    const spy = jest.spyOn(userRepository, 'create').mockResolvedValue({} as never);
 
     const createUserUseCase = new CreateUserUseCase(userRepository);
     await expect(createUserUseCase.execute(newUser)).rejects.toThrow();

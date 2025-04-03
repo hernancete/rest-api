@@ -13,7 +13,7 @@ export class FileUserRepository implements UserRepositoryInterface {
     return JSON.parse(users.toString());
   }
 
-  async create(user: User): Promise<void> {
+  async create(user: User): Promise<User> {
 
     // simulate a db's primary key
     if (!user.wallet_id) throw new Error('Invalid user');
@@ -22,6 +22,7 @@ export class FileUserRepository implements UserRepositoryInterface {
     const users = JSON.parse(usersBuffer.toString());
     const updatedUsers = [...users, user];
     await writeFile(file, JSON.stringify(updatedUsers));
+    return user;
   }
 
   async update(user: Partial<User>): Promise<User> {
