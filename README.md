@@ -1,5 +1,7 @@
 # rest-api
 
+[code challenge repo](https://github.com/AleSotoNubi/challenge-node-sr)
+
 | status | task |
 | :---:  | :--  |
 |&#10004;| un repositorio con codigo del challenge (publico) |
