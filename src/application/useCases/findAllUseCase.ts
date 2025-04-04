@@ -1,5 +1,5 @@
-import { UserRepositoryInterface } from "./userRepositoryInterface";
-import { User } from '../domain/user';
+import { UserRepositoryInterface } from "../userRepositoryInterface";
+import { User } from '../../domain/user';
 
 export class FindAllUseCase {
 

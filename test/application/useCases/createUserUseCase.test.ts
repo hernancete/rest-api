@@ -1,5 +1,5 @@
-import { CreateUserUseCase } from '../../src/application/createUserUseCase';
-import { FileUserRepository } from '../../src/infrastructure/fileUserRepository';
+import { CreateUserUseCase } from '../../../src/application/useCases/createUserUseCase';
+import { FileUserRepository } from '../../../src/infrastructure/fileUserRepository';
 
 describe('Create user use case', () => {
 

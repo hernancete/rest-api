@@ -1,5 +1,5 @@
-import { createUserController } from '../../src/adapters/controllers/createUserController';
-import { CreateUserUseCase }  from '../../src/application/createUserUseCase';
+import { createUserController } from '../../../src/adapters/controllers/createUserController';
+import { CreateUserUseCase }  from '../../../src/application/useCases/createUserUseCase';
 
 describe('Create user controller', () => {
 

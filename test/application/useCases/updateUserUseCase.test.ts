@@ -1,6 +1,6 @@
-import { UpdateUserUseCase } from '../../src/application/updateUserUseCase';
-import { FileUserRepository } from '../../src/infrastructure/fileUserRepository';
-import { User } from '../../src/domain/user';
+import { UpdateUserUseCase } from '../../../src/application/useCases/updateUserUseCase';
+import { FileUserRepository } from '../../../src/infrastructure/fileUserRepository';
+import { User } from '../../../src/domain/user';
 
 describe('Update user use case', () => {
 

@@ -1,5 +1,5 @@
-import { DeleteUserUseCase } from '../../src/application/deleteUserUseCase';
-import { FileUserRepository } from '../../src/infrastructure/fileUserRepository';
+import { DeleteUserUseCase } from '../../../src/application/useCases/deleteUserUseCase';
+import { FileUserRepository } from '../../../src/infrastructure/fileUserRepository';
 
 describe('Delete user use case', () => {
 

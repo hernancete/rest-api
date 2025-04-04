@@ -1,5 +1,5 @@
 import { Request, Response,  NextFunction } from 'express';
-import { UpdateUserUseCase } from '../../application/updateUserUseCase';
+import { UpdateUserUseCase } from '../../application/useCases/updateUserUseCase';
 import { FileUserRepository } from '../../infrastructure/fileUserRepository';
 
 export async function updateUserController(req: Request, res: Response, next: NextFunction) {

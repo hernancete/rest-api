@@ -1,5 +1,5 @@
-import { FindAllUseCase } from '../../src/application/findAllUseCase';
-import { FileUserRepository } from '../../src/infrastructure/fileUserRepository';
+import { FindAllUseCase } from '../../../src/application/useCases/findAllUseCase';
+import { FileUserRepository } from '../../../src/infrastructure/fileUserRepository';
 
 describe('Find all use case', () => {
 

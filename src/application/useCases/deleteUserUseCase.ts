@@ -1,6 +1,5 @@
-import { UserRepositoryInterface } from "./userRepositoryInterface";
-// import { User } from '../domain/user';
-import { InvalidInputError } from '../domain/errors';
+import { UserRepositoryInterface } from "../userRepositoryInterface";
+import { InvalidInputError } from '../../domain/errors';
 
 export class DeleteUserUseCase {
 

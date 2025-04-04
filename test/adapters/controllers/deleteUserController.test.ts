@@ -1,5 +1,5 @@
-import { deleteUserController } from '../../src/adapters/controllers/deleteUserController';
-import { DeleteUserUseCase }  from '../../src/application/deleteUserUseCase';
+import { deleteUserController } from '../../../src/adapters/controllers/deleteUserController';
+import { DeleteUserUseCase }  from '../../../src/application/useCases/deleteUserUseCase';
 
 describe('Delete user controller', () => {
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { findAllController } from '../../src/adapters/controllers/findAllController';
-import { FindAllUseCase }  from '../../src/application/findAllUseCase';
-import { users } from '../data';
+import { findAllController } from '../../../src/adapters/controllers/findAllController';
+import { FindAllUseCase }  from '../../../src/application/useCases/findAllUseCase';
+import { users } from '../../data';
 
 describe('Find all adapter', () => {
 

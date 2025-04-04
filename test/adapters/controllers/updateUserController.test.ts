@@ -1,5 +1,5 @@
-import { updateUserController } from '../../src/adapters/controllers/updateUserController';
-import { UpdateUserUseCase }  from '../../src/application/updateUserUseCase';
+import { updateUserController } from '../../../src/adapters/controllers/updateUserController';
+import { UpdateUserUseCase }  from '../../../src/application/useCases/updateUserUseCase';
 
 describe('Update user controller', () => {
 
