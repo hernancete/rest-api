@@ -132,3 +132,48 @@ describe('File user repository - delete user', () => {
   });
 
 });
+
+describe('File user repository - update user', () => {
+
+  test('It should throw an error if the user does not exist', async () => {
+    const updateUser = {
+      "wallet_id": "ebfd85bb-757b-4021-a7af-5a723d905cf2",
+      "name": "Juancito",
+    };
+
+    const spyRead = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+    const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
+
+    const fileUserRepository = new FileUserRepository();
+    await expect(() => fileUserRepository.update(updateUser)).rejects.toThrow();
+    expect(spyRead).toHaveBeenCalledTimes(1);
+    expect(spyWrite).toHaveBeenCalledTimes(0);
+
+    spyRead.mockRestore();
+    spyWrite.mockRestore();
+  });
+
+  test('It should save the user with the updated data', async () => {
+
+    const updateUser = {
+      "wallet_id": "98917d00-9c5b-4642-abf5-5b7c99c7c2ed",
+      "name": "Maria Jose",
+    };
+
+    const spyRead = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+    const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
+
+    const fileUserRepository = new FileUserRepository();
+    const updated = await fileUserRepository.update(updateUser);
+
+    const [,updatedUsersList] = spyWrite.mock.calls[0];
+    const updatedUser = JSON.parse(updatedUsersList as string).find((u: User) => u.wallet_id === updateUser.wallet_id);
+
+    expect(spyWrite).toHaveBeenCalledTimes(1);
+    expect(updatedUser).toEqual(expect.objectContaining(updateUser));
+
+    spyRead.mockRestore();
+    spyWrite.mockRestore();
+  });
+
+});

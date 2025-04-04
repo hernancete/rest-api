@@ -26,7 +26,20 @@ export class FileUserRepository implements UserRepositoryInterface {
   }
 
   async update(user: Partial<User>): Promise<User> {
-    return Promise.resolve(user as User);
+
+    const usersBuffer = await readFile(file);
+    const users = JSON.parse(usersBuffer.toString());
+
+    const userIndex = users.findIndex((u: User) => u.wallet_id === user.wallet_id);
+    if (userIndex === -1) throw new Error('User not found');
+
+    const uppdatedUser = {
+      ...users[userIndex],
+      ...user,
+    };
+    users.splice(userIndex, 1, uppdatedUser);
+    await writeFile(file, JSON.stringify(users));
+    return Promise.resolve(uppdatedUser);
   }
 
   async delete(id: string): Promise<void> {
