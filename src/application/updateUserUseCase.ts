@@ -6,12 +6,11 @@ export class UpdateUserUseCase {
 
   constructor(private userRepository: UserRepositoryInterface) {}
 
-  async execute(user: Partial<User>): Promise<User> {
+  async execute(wallet_id: string, user: Partial<User>): Promise<User> {
 
-    if (!user.wallet_id) throw new InvalidInputError('Invalid wallet_id');
+    if (!wallet_id) throw new InvalidInputError('Invalid wallet_id');
 
     const updateUser = {
-      wallet_id: user.wallet_id,
       ...(user.email ? { email: user.email } : {}),
       ...(user.name ? { name: user.name } : {}),
       ...(user.last_name ? { last_name: user.last_name } : {}),
@@ -20,7 +19,7 @@ export class UpdateUserUseCase {
       ...(user.birth_date ? { birth_date: user.birth_date } : {}),
     }
 
-    const updated = await this.userRepository.update(updateUser);
+    const updated = await this.userRepository.update(wallet_id, updateUser);
     return updated;
   }
 
