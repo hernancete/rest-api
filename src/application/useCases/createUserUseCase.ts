@@ -7,21 +7,25 @@ export class CreateUserUseCase {
 
   constructor(private userRepository: UserRepositoryInterface) {}
 
-  async execute(user: Partial<User>): Promise<User> {
+  execute(user: Partial<User>): Promise<User> {
 
-    if (!user.email) throw new InvalidInputError('Invalid email');
-    if (!user.name) throw new InvalidInputError('Invalid name');
-    if (!user.last_name) throw new InvalidInputError('Invalid last_name');
-    if (!user.dni) throw new InvalidInputError('Invalid dni');
+    return new Promise((resolve, reject) => {
 
-    const wallet_id = v4();
-    const now = new Date();
-    const created_at = now.toISOString();
+      if (!user.email) return reject(new InvalidInputError('Invalid email'));
+      if (!user.name) return reject(new InvalidInputError('Invalid name'));
+      if (!user.last_name) return reject(new InvalidInputError('Invalid last_name'));
+      if (!user.dni) return reject(new InvalidInputError('Invalid dni'));
 
-    const newUser = { ...user, wallet_id, created_at };
+      const wallet_id = v4();
+      const now = new Date();
+      const created_at = now.toISOString();
 
-    const created = await this.userRepository.create(newUser as User);
-    return created;
+      const newUser = { ...user, wallet_id, created_at };
+
+      this.userRepository.create(newUser as User)
+        .then(created => resolve(created))
+        .catch(e => reject(e));
+    });
   }
 
 }
