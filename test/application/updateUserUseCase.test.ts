@@ -19,7 +19,7 @@ describe('Update user use case', () => {
     spy.mockRestore();
   });
 
-  test('Only pass to the user repository the updatable fields', async () => {
+  test('It sould only pass to the user repository the updatable fields', async () => {
 
     const updateUser = {
       "wallet_id": "ebfd85bb-757b-4021-a7af-5a723d905cf2",
