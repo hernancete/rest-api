@@ -10,6 +10,7 @@ export class FindAllUseCase {
   async execute(filters?: any): Promise<User[]> {
 
     const curatedFilters: Filters = {};
+
     if (filters && filters.page && !isNaN(parseInt(filters.page))) {
       if (parseInt(filters.page) < 0) {
         throw new InvalidInputError('Invalid parameter');
