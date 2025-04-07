@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
-import { UserRepositoryInterface } from '../application/userRepositoryInterface';
+import { Filters, UserRepositoryInterface } from '../application/userRepositoryInterface';
 import { User } from '../domain/user';
 
 const STORAGE = process.env.STORAGE || 'storage/users.json';
@@ -8,9 +8,23 @@ const file = path.resolve(__dirname, '..', '..', STORAGE);
 
 export class FileUserRepository implements UserRepositoryInterface {
 
-  async findAll(): Promise<User[]> {
-    const users = await readFile(file);
-    return JSON.parse(users.toString());
+  async findAll(filters?: Filters): Promise<User[]> {
+
+    let start = 0;
+    let end;
+    if (filters && filters.page && filters.limit) {
+      start = ((filters.page || 1) -1) * (filters.limit || 0);
+    }
+    if (filters && filters.limit) {
+      end = start + (filters.limit || 0);
+    }
+
+    const usersBuffer = await readFile(file);
+    const users = JSON.parse(usersBuffer.toString());
+
+    const result = users.slice(start, end);
+
+    return result;
   }
 
   async create(user: User): Promise<User> {

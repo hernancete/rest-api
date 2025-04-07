@@ -12,9 +12,9 @@
 |&#10004;| Un endpoint para crear un nuevo usuario |
 |&#10004;| Un endpoint para eliminar un usuario |
 |&#10004;| Un endpoint para modificar un usuario |
-|&rarr;  | Utilizar en cada endpoint una forma diferente de manejo de asincronismo (callbacks, promises, async/await) |
+|&#10004;| Utilizar en cada endpoint una forma diferente de manejo de asincronismo (callbacks, promises, async/await) |
 |&#10004;| Usar typescript |
-|        | Que soporte QueryParams como: |
+|&rarr;  | Que soporte QueryParams como: |
 |        | &ensp;&ensp;&ensp; - pagination: ?page=2&limit=5 |
 |        | &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
 |        | &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
