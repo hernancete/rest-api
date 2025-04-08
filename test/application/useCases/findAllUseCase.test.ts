@@ -76,4 +76,58 @@ describe('Find all use case', () => {
     spy.mockRestore();
   });
 
+  test('It should execute the service with sorting filters', async () => {
+
+    const filters = {
+      sortBy: 'name',
+      sortDirection: 'ascending',
+    };
+
+    const userRepository = new FileUserRepository();
+    const spy = jest.spyOn(userRepository, 'findAll').mockResolvedValue('' as never);
+
+    const findAllUseCase = new FindAllUseCase(userRepository);
+    const result = await findAllUseCase.execute(filters);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(filters);
+
+    spy.mockRestore();
+  });
+
+  test('It should throw an error if invalid filters are provided: sortBy not sortable', async () => {
+
+    const filters = {
+      sortBy: 'football_team',
+    };
+
+    const userRepository = new FileUserRepository();
+    const spy = jest.spyOn(userRepository, 'findAll').mockResolvedValue('' as never);
+
+    const findAllUseCase = new FindAllUseCase(userRepository);
+
+    await expect(findAllUseCase.execute(filters)).rejects.toThrow()
+    expect(spy).toHaveBeenCalledTimes(0);
+
+    spy.mockRestore();
+  });
+
+  test('It should throw an error if invalid filters are provided: invalid sortDirection', async () => {
+
+    const filters = {
+      sortBy: 'name',
+      sortDirection: 'low-to-high',
+    };
+
+    const userRepository = new FileUserRepository();
+    const spy = jest.spyOn(userRepository, 'findAll').mockResolvedValue('' as never);
+
+    const findAllUseCase = new FindAllUseCase(userRepository);
+
+    await expect(findAllUseCase.execute(filters)).rejects.toThrow()
+    expect(spy).toHaveBeenCalledTimes(0);
+
+    spy.mockRestore();
+  });
+
 });
