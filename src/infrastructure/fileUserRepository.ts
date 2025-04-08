@@ -13,32 +13,9 @@ export class FileUserRepository implements UserRepositoryInterface {
     const usersBuffer = await readFile(file);
     let users: User[] = JSON.parse(usersBuffer.toString());
 
-    // sorting
-    if (filters && filters.sortBy) {
-      const sortBy = filters.sortBy!;
-      const sortFactor = filters.sortDirection === 'descending' ? -1 : 1;
-      users.sort((a: User, b: User) => {
-        if (!a[sortBy] && !b[sortBy]) return 0;
-        if (!a[sortBy]) return 1;
-        if (!b[sortBy]) return -1;
+    sorting(users, filters);
 
-        if (a[sortBy] < b[sortBy]) return -1 * sortFactor;
-        if (a[sortBy] > b[sortBy]) return 1 * sortFactor;
-
-        return 0;
-      });
-    }
-
-    // pagination
-    let start = 0;
-    let end;
-    if (filters && filters.page && filters.limit) {
-      start = ((filters.page || 1) -1) * (filters.limit || 0);
-    }
-    if (filters && filters.limit) {
-      end = start + (filters.limit || 0);
-    }
-    users = users.slice(start, end);
+    users = pagination(users, filters);
 
     return users;
   }
@@ -83,3 +60,32 @@ export class FileUserRepository implements UserRepositoryInterface {
   }
 
 };
+
+function pagination(users: User[], filters?: Filters) {
+  let start = 0;
+  let end;
+  if (filters && filters.page && filters.limit) {
+    start = ((filters.page || 1) -1) * (filters.limit || 0);
+  }
+  if (filters && filters.limit) {
+    end = start + (filters.limit || 0);
+  }
+  return users.slice(start, end);
+}
+
+function sorting(users: User[], filters?: Filters) {
+  if (filters && filters.sortBy) {
+    const sortBy = filters.sortBy!;
+    const sortFactor = filters.sortDirection === 'descending' ? -1 : 1;
+    users.sort((a: User, b: User) => {
+      if (!a[sortBy] && !b[sortBy]) return 0;
+      if (!a[sortBy]) return 1;
+      if (!b[sortBy]) return -1;
+
+      if (a[sortBy] < b[sortBy]) return -1 * sortFactor;
+      if (a[sortBy] > b[sortBy]) return 1 * sortFactor;
+
+      return 0;
+    });
+  }
+}
