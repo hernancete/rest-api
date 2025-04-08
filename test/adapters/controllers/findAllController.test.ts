@@ -62,4 +62,27 @@ describe('Find all adapter', () => {
     spy.mockRestore();
   });
 
+  test('It should execute the use case with correct parameters: sorting filters', async () => {
+
+    const spy = jest.spyOn(FindAllUseCase.prototype, 'execute').mockResolvedValue([] as never);
+
+    const req = {
+      query: {
+        sortBy: 'name',
+        sortDirection: 'descending',
+      }
+    } as any;
+    const res = {
+      json: jest.fn()
+    } as any;
+
+    await findAllController(req, res);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith({ sortBy: 'name', sortDirection: 'descending' });
+    expect(res.json).toHaveBeenCalledWith([]);
+
+    spy.mockRestore();
+  });
+
 });
