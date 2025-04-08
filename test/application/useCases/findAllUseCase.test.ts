@@ -130,4 +130,72 @@ describe('Find all use case', () => {
     spy.mockRestore();
   });
 
+  test('It should execute the service with a single matching filter', async () => {
+
+    const filters = {
+      'match[name]': 'cete',
+    };
+    const filtersCurated = {
+      match: {
+        name: 'cete',
+      }
+    }
+
+    const userRepository = new FileUserRepository();
+    const spy = jest.spyOn(userRepository, 'findAll').mockResolvedValue('' as never);
+
+    const findAllUseCase = new FindAllUseCase(userRepository);
+    const result = await findAllUseCase.execute(filters);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(filtersCurated);
+
+    spy.mockRestore();
+  });
+
+  test('It should execute the service with multiple matching filters', async () => {
+
+    const filters = {
+      'match[name]': 'john',
+      'match[last_name]': 'smith',
+      'match[dni]': '123',
+    };
+    const filtersCurated = {
+      match: {
+        name: 'john',
+        last_name: 'smith',
+        dni: '123',
+      }
+    }
+
+    const userRepository = new FileUserRepository();
+    const spy = jest.spyOn(userRepository, 'findAll').mockResolvedValue('' as never);
+
+    const findAllUseCase = new FindAllUseCase(userRepository);
+    const result = await findAllUseCase.execute(filters);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(filtersCurated);
+
+    spy.mockRestore();
+  });
+
+  test('It should throw an error if invalid filters are provided: invalid matching field', async () => {
+
+    const filters = {
+      'match[nonexistingfield]': 'john',
+    };
+
+    const userRepository = new FileUserRepository();
+    const spy = jest.spyOn(userRepository, 'findAll').mockResolvedValue('' as never);
+
+    const findAllUseCase = new FindAllUseCase(userRepository);
+
+    await expect(findAllUseCase.execute(filters)).rejects.toThrow()
+    expect(spy).toHaveBeenCalledTimes(0);
+
+    spy.mockRestore();
+  });
+
+
 });

@@ -244,7 +244,7 @@ describe('File user repository', () => {
     });
   });
 
-  describe.only('Matching', () => {
+  describe('Matching', () => {
     // match[email]=juan@mail.com
 
     test('It should return the users matching some field: name', async() => {

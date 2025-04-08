@@ -1,4 +1,4 @@
-import { Filters, UserRepositoryInterface } from "../userRepositoryInterface";
+import { Filters, UserRepositoryInterface, MatchFilter } from "../userRepositoryInterface";
 import { User } from '../../domain/user';
 import { InvalidInputError } from '../../domain/errors';
 
@@ -12,6 +12,7 @@ export class FindAllUseCase {
     const curatedFilters: Filters = {};
     curatePaginationFilters(filters, curatedFilters);
     curateSortingFilters(filters, curatedFilters);
+    curateMatchingFilters(filters, curatedFilters);
 
     return this.userRepository.findAll(curatedFilters);
   }
@@ -45,7 +46,7 @@ function curateSortingFilters(filters: any, curatedFilters: Filters) {
     'created_at',
   ];
   const sortableDirections = ['ascending', 'descending'];
-    if (filters && filters.sortBy) {
+  if (filters && filters.sortBy) {
     if (!sortables.includes(filters.sortBy)) {
       throw new InvalidInputError('Invalid filter');
     }
@@ -56,5 +57,41 @@ function curateSortingFilters(filters: any, curatedFilters: Filters) {
       }
       curatedFilters.sortDirection = filters.sortDirection;
     }
+  }
+}
+
+function curateMatchingFilters(filters: any, curatedFilters: Filters) {
+
+  if (!filters) return;
+
+  const matchables = [
+    'wallet_id',
+    'email',
+    'name',
+    'last_name',
+    'sex_type',
+    'dni',
+    'birth_date',
+    'created_at',
+  ];
+
+  const match: MatchFilter = {};
+
+  Object.keys(filters).forEach(f => {
+
+    const matchRegex = new RegExp(/match\[(.+)\]/);
+    const matchRegexResult = matchRegex.exec(f);
+    if (matchRegexResult) {
+      const field = matchRegexResult[1];
+      if (field && matchables.includes(field)) {
+        match[field] = filters[f];
+      } else {
+        throw new InvalidInputError('Invalid filter');
+      }
+    }
+  });
+
+  if (Object.keys(match).length) {
+    curatedFilters.match = {...match}
   }
 }

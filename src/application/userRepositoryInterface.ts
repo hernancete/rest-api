@@ -1,6 +1,6 @@
 import { User } from '../domain/user';
 
-interface MatchFilter {
+export interface MatchFilter {
   [key: string]: string,
 }
 
