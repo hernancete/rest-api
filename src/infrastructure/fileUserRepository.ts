@@ -10,6 +10,26 @@ export class FileUserRepository implements UserRepositoryInterface {
 
   async findAll(filters?: Filters): Promise<User[]> {
 
+    const usersBuffer = await readFile(file);
+    let users: User[] = JSON.parse(usersBuffer.toString());
+
+    // sorting
+    if (filters && filters.sortBy) {
+      const sortBy = filters.sortBy!;
+      const sortFactor = filters.sortDirection === 'descending' ? -1 : 1;
+      users.sort((a: User, b: User) => {
+        if (!a[sortBy] && !b[sortBy]) return 0;
+        if (!a[sortBy]) return 1;
+        if (!b[sortBy]) return -1;
+
+        if (a[sortBy] < b[sortBy]) return -1 * sortFactor;
+        if (a[sortBy] > b[sortBy]) return 1 * sortFactor;
+
+        return 0;
+      });
+    }
+
+    // pagination
     let start = 0;
     let end;
     if (filters && filters.page && filters.limit) {
@@ -18,13 +38,9 @@ export class FileUserRepository implements UserRepositoryInterface {
     if (filters && filters.limit) {
       end = start + (filters.limit || 0);
     }
+    users = users.slice(start, end);
 
-    const usersBuffer = await readFile(file);
-    const users = JSON.parse(usersBuffer.toString());
-
-    const result = users.slice(start, end);
-
-    return result;
+    return users;
   }
 
   async create(user: User): Promise<User> {

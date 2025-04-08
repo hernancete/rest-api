@@ -3,6 +3,8 @@ import { User } from '../domain/user';
 export interface Filters {
   page?: number,
   limit?: number,
+  sortBy?: keyof User,
+  sortDirection?: 'ascending' | 'descending',
 }
 
 export interface UserRepositoryInterface {
