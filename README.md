@@ -15,8 +15,8 @@
 |&#10004;| Utilizar en cada endpoint una forma diferente de manejo de asincronismo (callbacks, promises, async/await) |
 |&#10004;| Usar typescript |
 |&rarr;  | Que soporte QueryParams como: |
-|        | &ensp;&ensp;&ensp; - pagination: ?page=2&limit=5 |
-|        | &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
+|&#10004;| &ensp;&ensp;&ensp; - pagination: ?page=2&limit=5 |
+|&rarr;  | &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
 |        | &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
 |        | Seguridad (proteger los endpoints contra uso no autorizado, implementando algun mecanismo de validacion de acceso a los mismos) |
 |&#10004;| Test Unitarios |
@@ -26,11 +26,9 @@
 
 ### Puntos a tener en cuenta
 
-| Status | Punto |
-| :---:  | :--   |
-|        | Enfoque general para el desarrollo de API, como esten divividas las responsabilidades en el diseño. |
-|        | Estilo de código, claridad y consistencia. Corrección lógica. |
-|        | Simplicidad de la implementación. |
-|        | Buenas prácticas en el uso de docker. |
-|        | Correcto uso de dependencias npm. |
-|        | Flexibilidad de la solucion propuesta. |
+- Enfoque general para el desarrollo de API, como esten divividas las responsabilidades en el diseño.
+- Estilo de código, claridad y consistencia. Corrección lógica.
+- Simplicidad de la implementación.
+- Buenas prácticas en el uso de docker.
+- Correcto uso de dependencias npm.
+- Flexibilidad de la solucion propuesta.
