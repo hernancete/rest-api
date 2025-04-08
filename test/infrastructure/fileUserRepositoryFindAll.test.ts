@@ -110,7 +110,7 @@ describe('File user repository', () => {
   describe('Sorting', () => {
     // sortBy=email&sortDirection=ascending
 
-    test('It should sort by birth_date', async() => {
+    test('It should sort by some field: birth_date', async() => {
       const spy = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
 
       const sortBy = 'birth_date';
@@ -138,7 +138,7 @@ describe('File user repository', () => {
       spy.mockRestore();
     });
 
-    test('It should sort by name in descending order', async() => {
+    test('It should sort by some field in given order: name, descending', async() => {
       const spy = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
 
       const sortBy = 'name';
@@ -167,7 +167,7 @@ describe('File user repository', () => {
       spy.mockRestore();
     });
 
-    test('It should sort by last_name in ascending order event if is not set', async() => {
+    test('It should sort by some field in ascending order event if is not set', async() => {
       const modifiedUsersIds = [
         "98917d00-9c5b-4642-abf5-5b7c99c7c2ed",
         "03c82ec7-419e-49a5-9982-74c4cb089430",
@@ -205,7 +205,7 @@ describe('File user repository', () => {
       spy.mockRestore();
     });
 
-    test('It should sort by last_name in descending order event if is not set', async() => {
+    test('It should sort by some field in descending order if it is given', async() => {
       const modifiedUsersIds = [
         "98917d00-9c5b-4642-abf5-5b7c99c7c2ed",
         "03c82ec7-419e-49a5-9982-74c4cb089430",
@@ -242,6 +242,50 @@ describe('File user repository', () => {
 
       spy.mockRestore();
     });
+  });
+
+  describe.only('Matching', () => {
+    // match[email]=juan@mail.com
+
+    test('It should return the users matching some field: name', async() => {
+      const spy = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+
+      const match = { name: 'na' };
+
+      const expectedUsersIds = [
+        "7aac4624-c9d0-4ed0-aceb-6babd8dceb66",  // Luna
+        "7b989385-555b-4d99-89b2-8f23eb1020e7",  // Nathaniel
+      ];
+
+      const fileUserRepository = new FileUserRepository();
+      const allUsers = await fileUserRepository.findAll({match});
+
+      expect(allUsers).toBeInstanceOf(Array);
+      expect(allUsers).toHaveLength(2);
+      expect(allUsers.map(u => u.wallet_id)).toEqual(expectedUsersIds);
+
+      spy.mockRestore();
+    });
+
+    test('It should return the users matching the fiven fields: name and last_name', async() => {
+      const spy = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+
+      const match = { name: 'na', last_name: 'ru' };
+
+      const expectedUsersIds = [
+        "7aac4624-c9d0-4ed0-aceb-6babd8dceb66",  // Luna Ruecker
+      ];
+
+      const fileUserRepository = new FileUserRepository();
+      const allUsers = await fileUserRepository.findAll({match});
+
+      expect(allUsers).toBeInstanceOf(Array);
+      expect(allUsers).toHaveLength(1);
+      expect(allUsers.map(u => u.wallet_id)).toEqual(expectedUsersIds);
+
+      spy.mockRestore();
+    });
+
   });
 
 });

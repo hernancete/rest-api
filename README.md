@@ -16,8 +16,8 @@
 |&#10004;| Usar typescript |
 |&rarr;  | Que soporte QueryParams como: |
 |&#10004;| &ensp;&ensp;&ensp; - pagination: ?page=2&limit=5 |
-|&rarr;  | &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
-|        | &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
+|&#10004;| &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
+|&rarr;  | &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
 |        | Seguridad (proteger los endpoints contra uso no autorizado, implementando algun mecanismo de validacion de acceso a los mismos) |
 |&#10004;| Test Unitarios |
 |        | Dockerfile y docker-compose que permita levantar la API ejecutando "docker-compose up" con todo lo necesario. |

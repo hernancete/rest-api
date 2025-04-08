@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { Filters, UserRepositoryInterface } from '../application/userRepositoryInterface';
 import { User } from '../domain/user';
+import { match } from 'assert';
 
 const STORAGE = process.env.STORAGE || 'storage/users.json';
 const file = path.resolve(__dirname, '..', '..', STORAGE);
@@ -13,8 +14,8 @@ export class FileUserRepository implements UserRepositoryInterface {
     const usersBuffer = await readFile(file);
     let users: User[] = JSON.parse(usersBuffer.toString());
 
+    users = matching(users, filters);
     sorting(users, filters);
-
     users = pagination(users, filters);
 
     return users;
@@ -88,4 +89,17 @@ function sorting(users: User[], filters?: Filters) {
       return 0;
     });
   }
+}
+
+function matching(users: User[], filters?: Filters) {
+  if (filters && filters.match) {
+    const match = filters.match!;
+    users = users.filter((u: User) => {
+      return Object.keys(match).every(field => {
+        const reg = new RegExp(match[field], 'i');
+        return reg.test(u[field as keyof User]!);
+      });
+    });
+  }
+  return users;
 }

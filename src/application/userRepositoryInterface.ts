@@ -1,10 +1,15 @@
 import { User } from '../domain/user';
 
+interface MatchFilter {
+  [key: string]: string,
+}
+
 export interface Filters {
   page?: number,
   limit?: number,
   sortBy?: keyof User,
   sortDirection?: 'ascending' | 'descending',
+  match?: MatchFilter,
 }
 
 export interface UserRepositoryInterface {
