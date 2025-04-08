@@ -85,4 +85,27 @@ describe('Find all adapter', () => {
     spy.mockRestore();
   });
 
+  test('It should execute the use case with correct parameters: matching filters', async () => {
+
+    const spy = jest.spyOn(FindAllUseCase.prototype, 'execute').mockResolvedValue([] as never);
+
+    const req = {
+      query: {
+        'match[name]': 'Will',
+        'match[last_name]': 'Doe',
+      }
+    } as any;
+    const res = {
+      json: jest.fn()
+    } as any;
+
+    await findAllController(req, res);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith({ 'match[name]': 'Will', 'match[last_name]': 'Doe' });
+    expect(res.json).toHaveBeenCalledWith([]);
+
+    spy.mockRestore();
+  });
+
 });

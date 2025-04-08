@@ -14,11 +14,11 @@
 |&#10004;| Un endpoint para modificar un usuario |
 |&#10004;| Utilizar en cada endpoint una forma diferente de manejo de asincronismo (callbacks, promises, async/await) |
 |&#10004;| Usar typescript |
-|&rarr;  | Que soporte QueryParams como: |
+|&#10004;| Que soporte QueryParams como: |
 |&#10004;| &ensp;&ensp;&ensp; - pagination: ?page=2&limit=5 |
 |&#10004;| &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
-|&rarr;  | &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
-|        | Seguridad (proteger los endpoints contra uso no autorizado, implementando algun mecanismo de validacion de acceso a los mismos) |
+|&#10004;| &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
+|&rarr;  | Seguridad (proteger los endpoints contra uso no autorizado, implementando algun mecanismo de validacion de acceso a los mismos) |
 |&#10004;| Test Unitarios |
 |        | Dockerfile y docker-compose que permita levantar la API ejecutando "docker-compose up" con todo lo necesario. |
 |        | Collection de postman o equivalente para probar todos los endpoints |
