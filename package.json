@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "node --watch -r ts-node/register src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc --build"
   },
   "author": "",
   "license": "ISC",
