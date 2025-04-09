@@ -2,10 +2,9 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { Filters, UserRepositoryInterface } from '../application/userRepositoryInterface';
 import { User } from '../domain/user';
-import { match } from 'assert';
 
-const STORAGE = process.env.STORAGE || 'storage/users.json';
-const file = path.resolve(__dirname, '..', '..', STORAGE);
+const API_STORAGE = process.env.API_STORAGE || 'storage/users.json';
+const file = path.resolve(__dirname, '..', '..', API_STORAGE);
 
 export class FileUserRepository implements UserRepositoryInterface {
 

@@ -18,10 +18,12 @@
 |&#10004;| &ensp;&ensp;&ensp; - pagination: ?page=2&limit=5 |
 |&#10004;| &ensp;&ensp;&ensp; - sorting: ?sortBy=email&sortDirection=ascending |
 |&#10004;| &ensp;&ensp;&ensp; - matching: ?match[email]=jdoe@example.com |
-|&rarr;  | Seguridad (proteger los endpoints contra uso no autorizado, implementando algun mecanismo de validacion de acceso a los mismos) |
+|&#10004;| Seguridad (proteger los endpoints contra uso no autorizado, implementando algun mecanismo de validacion de acceso a los mismos) |
 |&#10004;| Test Unitarios |
-|        | Dockerfile y docker-compose que permita levantar la API ejecutando "docker-compose up" con todo lo necesario. |
+|&#10004;| Dockerfile y docker-compose que permita levantar la API ejecutando "docker-compose up" con todo lo necesario. |
+|        | &ensp;&ensp;&ensp; - ver de poner el storage como volumen |
 |        | Collection de postman o equivalente para probar todos los endpoints |
+
 
 
 ### Puntos a tener en cuenta
