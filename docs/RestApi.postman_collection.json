@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "23a4f681-d587-4502-934d-bbf696d447c8",
+		"name": "RestApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "65324"
+	},
+	"item": [
+		{
+			"name": "users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users (paginated)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/users?page=1&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users (sorted)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/users?sortBy=name&sortDirection=descending",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "name"
+						},
+						{
+							"key": "sortDirection",
+							"value": "descending"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users (filtered)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/users?match[name]=un&match[dni]=19",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "match[name]",
+							"value": "un"
+						},
+						{
+							"key": "match[dni]",
+							"value": "19"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users (paginated/sorted/filtered)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/users?page=2&limit=4&sortBy=birth_date&sortDirection=descending&match[name]=la",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "4"
+						},
+						{
+							"key": "sortBy",
+							"value": "birth_date"
+						},
+						{
+							"key": "sortDirection",
+							"value": "descending"
+						},
+						{
+							"key": "match[name]",
+							"value": "la"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users (Unauthorized)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "INvalidToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"test@mail.com\",\n    \"name\":\"Juan Carlos\",\n    \"last_name\":\"Garcia\",\n    \"sex_type\": \"male\",\n    \"dni\": \"30123456\",\n    \"birth_date\": \"2003-07-08T12:20:36.833Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Juan Carlos Esteban de la Cruz\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/users/b74ef332-3527-449b-8d03-8d323b39630b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users",
+						"b74ef332-3527-449b-8d03-8d323b39630b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/users/b74ef332-3527-449b-8d03-8d323b39630b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"users",
+						"b74ef332-3527-449b-8d03-8d323b39630b"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
