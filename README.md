@@ -6,6 +6,15 @@
 
 Tener instalado **docker** y **docker compose** (plugin).
 
+#### Buildear la app
+
+```shell
+# install deps
+npm ci
+# build the app
+npm run build
+```
+
 #### Crear la imagen docker
 
 ```shell
@@ -77,6 +86,7 @@ Dentro de la carpeta docs/ se encuentra la colección de postman `RestApi.postma
 - `GET /users (filtered)`
 - `GET /users (paginated/sorted/filtered)`
 - `GET /users (Unauthorized)`
+- `GET (NotFound)`
 - `POST /users`
 - `PUT /users/{id}`
 - `DELETE /users/{id}`
@@ -131,3 +141,12 @@ npm test
 - Buenas prácticas en el uso de docker.
 - Correcto uso de dependencias npm.
 - Flexibilidad de la solucion propuesta.
+
+
+## TODO
+
+- ~~Agregar el manejo para los 404 de las rutas no encontradas~~
+- Manejar el PUT /users/id-que-no-existe: esta dando 500 internal error en lugar de not found
+- En el DELETE /users/id-que-no-existe deberíamos dar error diciendo que el user no existe, en lugar de dar un OK
+- Hacer la prueba de montar un volumen como storage
+- Probar los pasos de este README en otra compu (ver si la version de node jode y ponerla como requisito)

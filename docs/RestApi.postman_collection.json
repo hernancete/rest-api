@@ -203,6 +203,30 @@
 			"response": []
 		},
 		{
+			"name": "(NotFound)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "validToken",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost/non-existing-route",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"non-existing-route"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "users",
 			"request": {
 				"method": "POST",
@@ -256,14 +280,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/users/b74ef332-3527-449b-8d03-8d323b39630b",
+					"raw": "http://localhost/users/feb48ba7-4d67-402e-a91b-073697f6923c",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"users",
-						"b74ef332-3527-449b-8d03-8d323b39630b"
+						"feb48ba7-4d67-402e-a91b-073697f6923c"
 					]
 				}
 			},
@@ -290,14 +314,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/users/b74ef332-3527-449b-8d03-8d323b39630b",
+					"raw": "http://localhost/users/feb48ba7-4d67-402e-a91b-073697f6923c",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"users",
-						"b74ef332-3527-449b-8d03-8d323b39630b"
+						"feb48ba7-4d67-402e-a91b-073697f6923c"
 					]
 				}
 			},
