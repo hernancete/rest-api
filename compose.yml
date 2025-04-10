@@ -1,0 +1,6 @@
+services:
+  rest-api:
+    image: rest-api:latest
+    container_name: rest-api
+    ports:
+      - ${LOCAL_API_PORT:-80}:80
