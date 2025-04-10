@@ -13,3 +13,8 @@ export function errorHandler(err: Error, req: Request, res: Response, next: Next
     res.json({ message: 'Internal error' });
   }
 }
+
+export function notFoundErrorHandler(req: Request, res: Response, next: NextFunction) {
+  res.status(404);
+  res.json({ message: 'Not found' });
+};
