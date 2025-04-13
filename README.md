@@ -78,7 +78,7 @@ docker images rm rest-api:latest
 
 *Nota: La Api cuenta con un (muy simple) método de autorización. En cada consulta se debe agregar el header `Authorization` con el valor `validToken`.*
 
-Dentro de la carpeta docs/ se encuentra la colección de postman `RestApi.postman_collection.json` con las siguientes requests:
+Para probar y usar la Api, dentro de la carpeta `docs/` se encuentra la colección de postman `RestApi.postman_collection.json` con las siguientes requests:
 
 - `GET /users`
 - `GET /users (paginated)`
@@ -90,6 +90,8 @@ Dentro de la carpeta docs/ se encuentra la colección de postman `RestApi.postma
 - `POST /users`
 - `PUT /users/{id}`
 - `DELETE /users/{id}`
+
+Importar la colección dentro de Postman (o similar) y ejecutar las requests.
 
 
 ## Tests
@@ -146,7 +148,8 @@ npm test
 ## TODO
 
 - ~~Agregar el manejo para los 404 de las rutas no encontradas~~
-- Manejar el PUT /users/id-que-no-existe: esta dando 500 internal error en lugar de not found
+- ~~Manejar el PUT /users/id-que-no-existe: esta dando 500 internal error en lugar de not found~~
 - En el DELETE /users/id-que-no-existe deberíamos dar error diciendo que el user no existe, en lugar de dar un OK
-- Hacer la prueba de montar un volumen como storage
-- Probar los pasos de este README en otra compu (ver si la version de node jode y ponerla como requisito)
+- Probar los pasos de este README en otra compu y ver que todo funcione ok (ver si la versión de node jode y ponerla como requisito)
+- (?) Probar un método de autenticación más *tradicional*, pero simple como Basic Auth
+- (?) Hacer la prueba de montar un volumen como storage

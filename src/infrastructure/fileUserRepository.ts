@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { Filters, UserRepositoryInterface } from '../application/userRepositoryInterface';
 import { User } from '../domain/user';
+import { NotFoundError } from '../domain/errors';
 
 const API_STORAGE = process.env.API_STORAGE || 'storage/users.json';
 const file = path.resolve(__dirname, '..', '..', API_STORAGE);
@@ -38,7 +39,7 @@ export class FileUserRepository implements UserRepositoryInterface {
     const users = JSON.parse(usersBuffer.toString());
 
     const userIndex = users.findIndex((u: User) => u.wallet_id === id);
-    if (userIndex === -1) throw new Error('User not found');
+    if (userIndex === -1) throw new NotFoundError();
 
     const uppdatedUser = {
       ...users[userIndex],

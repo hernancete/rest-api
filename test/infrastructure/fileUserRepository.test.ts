@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import { v4 } from 'uuid';
 import { FileUserRepository } from '../../src/infrastructure/fileUserRepository';
 import { User } from '../../src/domain/user';
+import { NotFoundError } from '../../src/domain/errors';
 import { users } from '../data';
 
 describe('File user repository - create new user', () => {
@@ -107,7 +108,7 @@ describe('File user repository - delete user', () => {
 
 describe('File user repository - update user', () => {
 
-  test('It should throw an error if the user does not exist', async () => {
+  test('It should throw an NotFound error if the user does not exist', async () => {
     const wallet_id = "ebfd85bb-757b-4021-a7af-5a723d905cf2";
     const updateUser = {
       "name": "Juancito",
@@ -117,7 +118,7 @@ describe('File user repository - update user', () => {
     const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
 
     const fileUserRepository = new FileUserRepository();
-    await expect(() => fileUserRepository.update(wallet_id, updateUser)).rejects.toThrow();
+    await expect(() => fileUserRepository.update(wallet_id, updateUser)).rejects.toThrow(NotFoundError);
     expect(spyRead).toHaveBeenCalledTimes(1);
     expect(spyWrite).toHaveBeenCalledTimes(0);
 

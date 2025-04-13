@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { UnauthorizedError, InvalidInputError } from '../../domain/errors';
+import { UnauthorizedError, InvalidInputError, NotFoundError } from '../../domain/errors';
 
 export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
   if (err instanceof UnauthorizedError) {
@@ -7,6 +7,9 @@ export function errorHandler(err: Error, req: Request, res: Response, next: Next
     res.json({ message: err.message });
   } else if (err instanceof InvalidInputError) {
     res.status(err.status || 400);
+    res.json({ message: err.message });
+  } else if (err instanceof NotFoundError) {
+    res.status(err.status || 404);
     res.json({ message: err.message });
   } else {
     res.status(500);

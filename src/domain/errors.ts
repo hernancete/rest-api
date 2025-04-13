@@ -13,3 +13,11 @@ export class UnauthorizedError extends Error {
     this.status = 401;
   }
 };
+
+export class NotFoundError extends Error {
+  status: number;
+  constructor(message: string = 'Not found') {
+    super(message);
+    this.status = 404;
+  }
+};
