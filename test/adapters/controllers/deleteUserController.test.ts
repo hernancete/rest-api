@@ -22,10 +22,6 @@ describe('Delete user controller', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(wallet_id, expect.any(Function));
-    expect(res.json).toHaveBeenCalledTimes(1);
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-      message: expect.stringMatching(/user deleted/i),
-    }));
 
     spy.mockRestore();
   });

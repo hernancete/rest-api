@@ -53,11 +53,12 @@ export class FileUserRepository implements UserRepositoryInterface {
   async delete(id: string): Promise<void> {
     const usersBuffer = await readFile(file);
     const users = JSON.parse(usersBuffer.toString());
+
     const userIndex = users.findIndex((u: User) => u.wallet_id === id);
-    if (userIndex !== -1) {
-      users.splice(userIndex, 1);
-      await writeFile(file, JSON.stringify(users));
-    }
+    if (userIndex === -1) throw new NotFoundError();
+
+    users.splice(userIndex, 1);
+    await writeFile(file, JSON.stringify(users));
   }
 
 };

@@ -149,7 +149,7 @@ npm test
 
 - ~~Agregar el manejo para los 404 de las rutas no encontradas~~
 - ~~Manejar el PUT /users/id-que-no-existe: esta dando 500 internal error en lugar de not found~~
-- En el DELETE /users/id-que-no-existe deberíamos dar error diciendo que el user no existe, en lugar de dar un OK
+- ~~En el DELETE /users/id-que-no-existe deberíamos dar error diciendo que el user no existe, en lugar de dar un OK~~
 - Probar los pasos de este README en otra compu y ver que todo funcione ok (ver si la versión de node jode y ponerla como requisito)
 - (?) Probar un método de autenticación más *tradicional*, pero simple como Basic Auth
 - (?) Hacer la prueba de montar un volumen como storage

@@ -104,6 +104,21 @@ describe('File user repository - delete user', () => {
     spyWrite.mockRestore();
   });
 
+  test('It should throw an NotFound error if the user does not exist', async () => {
+    const wallet_id = "0717f140-da75-420f-ae26-6ec2450866ba";  // Non-existing user
+
+    const spyRead = jest.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from(JSON.stringify(users)));
+    const spyWrite = jest.spyOn(fs, 'writeFile').mockResolvedValue();
+
+    const fileUserRepository = new FileUserRepository();
+    await expect(() => fileUserRepository.delete(wallet_id)).rejects.toThrow(NotFoundError);
+    expect(spyRead).toHaveBeenCalledTimes(1);
+    expect(spyWrite).toHaveBeenCalledTimes(0);
+
+    spyRead.mockRestore();
+    spyWrite.mockRestore();
+  });
+
 });
 
 describe('File user repository - update user', () => {
