@@ -3,12 +3,14 @@ import { authHandler } from '../../../src/adapters/middlewares/authMiddleware';
 
 describe('Auth middleware', () => {
 
-  const validAuthToken = 'validToken';
+  const AUTH_USER = 'user';
+  const AUTH_PASS = 'password';
 
   test('It should allow the execution of controller for authenticated users', () => {
+    const basicAuthHash = Buffer.from(`${AUTH_USER}:${AUTH_PASS}`).toString('base64');
     const req = {
       headers: {
-        authorization: validAuthToken,
+        authorization: `Basic ${basicAuthHash}`,
       },
     } as any;
     const next = jest.fn();
