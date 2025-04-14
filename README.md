@@ -4,7 +4,10 @@
 
 #### Prerequisitos
 
-Tener instalado **docker** y **docker compose** (plugin).
+Tener instalado:
+* **docker**
+* **docker compose** (plugin)
+* **node** v18+
 
 #### Buildear la app
 
@@ -26,6 +29,9 @@ Eso debería generar la imagen docker `rest-api:latest`.
 ```shell
 docker images rest-api:latest
 ```
+
+*Note: en este y los demás comandos docker posiblemente se necesite usar "sudo" según cómo esté configurado el comando.*
+
 
 #### Variables de entorno
 
