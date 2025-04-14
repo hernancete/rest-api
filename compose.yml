@@ -4,3 +4,6 @@ services:
     container_name: rest-api
     ports:
       - ${LOCAL_API_PORT:-80}:80
+    environment:
+      - AUTH_USER=${AUTH_USER:-user}
+      - AUTH_PASS=${AUTH_PASS:-password}

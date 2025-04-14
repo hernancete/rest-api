@@ -3,11 +3,22 @@ import { authHandler } from '../../../src/adapters/middlewares/authMiddleware';
 
 describe('Auth middleware', () => {
 
-  const AUTH_USER = 'user';
-  const AUTH_PASS = 'password';
+  const ENV = process.env;
+
+  beforeEach(() => {
+    process.env = {
+      ...ENV,
+      AUTH_USER: 'user',
+      AUTH_PASS: 'password',
+    };
+  });
+
+  afterEach(() => {
+    process.env = ENV;
+  });
 
   test('It should allow the execution of controller for authenticated users', () => {
-    const basicAuthHash = Buffer.from(`${AUTH_USER}:${AUTH_PASS}`).toString('base64');
+    const basicAuthHash = Buffer.from(`${process.env.AUTH_USER}:${process.env.AUTH_PASS}`).toString('base64');
     const req = {
       headers: {
         authorization: `Basic ${basicAuthHash}`,

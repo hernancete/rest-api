@@ -27,14 +27,24 @@ Eso debería generar la imagen docker `rest-api:latest`.
 docker images rest-api:latest
 ```
 
-#### Puerto
+#### Variables de entorno
 
-Por defecto la Api escucha en el puero 80. Esto se puede cambiar editando la variable de entorno `LOCAL_API_PORT` dentro del archivo `.env` (no provisto). Por ejemplo si queremos usar el puerto 8088.
+Hay algunas configuraciones que tienen valores por defecto. Éstas se pueden sobreescribir usando el archivo `.env`. No se provee un archivo `.env`, pero sí uno de ejemplo `.env.example`.
+
+##### LOCAL_API_PORT
+Por defecto la Api escucha en el puero 80. Esto se puede cambiar editando la variable de entorno `LOCAL_API_PORT`. Por ejemplo si queremos usar el puerto 8088.
 
 ```shell
 # .env file
 LOCAL_API_PORT=8088
 ```
+
+##### AUTH_USER
+Username para la autenticación Basic. Por defecto `user`.
+
+##### AUTH_PASS
+Contraseña para la autenticación Basic. Por defecto `password`.
+
 
 #### <div id="run-service-docker-compose-up" /> Levantar la api con docker compose
 
@@ -53,10 +63,10 @@ docker compose ps
 Se puede probar la Api llamando a alguno de sus endpoints. Por ejemplo el GET /users.
 
 ```shell
-curl -H 'Authorization: validToken' -X GET "http://localhost/users"
+curl -u 'user:password' -X GET "http://localhost/users"
 ```
 
-*Si se eligió un puerto diferente al 80, debemos agregar ese puerto en la url. Por ejemplo para el puerto 8088 la url sería `http://localhost:8088/users`.*
+*Si se eligió un puerto diferente al 80, debemos agregar ese puerto en la url. Por ejemplo para el puerto 8088 la url sería `http://localhost:8088/users`. De igual forma, usar el usuario y contraseña configurados.*
 
 #### Bajar la api
 
@@ -74,9 +84,7 @@ docker images rm rest-api:latest
 
 *Nota: Para usar la api, seguir los pasos descriptos en **[Levantar el servicio](#run-service)** hasta la parte de **[Levantar la api con docker compose](#run-service-docker-compose-up)** inclusive.*
 
-*Nota: Los ejemplos se muestran suponiendo que la Api corre en el puerto por defecto 80.*
-
-*Nota: La Api cuenta con un (muy simple) método de autorización. En cada consulta se debe agregar el header `Authorization` con el valor `validToken`.*
+*Nota: Los ejemplos se muestran suponiendo que la Api corre con las variables de entorno por defecto.*
 
 Para probar y usar la Api, dentro de la carpeta `docs/` se encuentra la colección de postman `RestApi.postman_collection.json` con las siguientes requests:
 
@@ -151,5 +159,5 @@ npm test
 - ~~Manejar el PUT /users/id-que-no-existe: esta dando 500 internal error en lugar de not found~~
 - ~~En el DELETE /users/id-que-no-existe deberíamos dar error diciendo que el user no existe, en lugar de dar un OK~~
 - Probar los pasos de este README en otra compu y ver que todo funcione ok (ver si la versión de node jode y ponerla como requisito)
-- (?) Probar un método de autenticación más *tradicional*, pero simple como Basic Auth
+- ~~(?) Probar un método de autenticación más *tradicional*, pero simple como Basic Auth~~
 - (?) Hacer la prueba de montar un volumen como storage
